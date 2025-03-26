@@ -1,0 +1,291 @@
+/* Общие стили */
+
+body {
+    transform: scale(1.2);
+    transform-origin: top center;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    body {
+        transform: none;
+        zoom: unset;
+        overflow-x: visible;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    html {
+        zoom: unset;
+        transform: none !important;
+        width: 100% !important;
+        min-height: auto !important;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #4a4a4a;
+    overflow-x: hidden;
+}
+
+.section {
+    min-height: 100vh;
+    height: auto;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    scroll-snap-align: start;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* Шапка */
+.header {
+    color: white;
+    position: relative;
+    isolation: isolate; /* Важно для z-index */
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -2;
+    left: -2;
+    width: 101%;
+    height: 101%;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/1.webp') center/cover;
+    filter: blur(5px);
+    z-index: -1; /* Помещаем под основной контент */
+}
+
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Детали мероприятия */
+.details {
+    background: #fff5ee;
+}
+
+.details-box {
+    max-width: 800px;
+    padding: 2rem;
+    border: 2px solid #e0c9b8;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+/* Блок с пожеланиями */
+.wishes {
+    background: #f8f8f8;
+}
+
+.wishes-text {
+    max-width: 800px;
+    font-family: 'Marck Script', cursive;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    padding: 2rem;
+}
+
+/* Детские фото */
+.child-photos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin: 3rem 0;
+}
+
+.photo-card {
+    width: 280px;
+    height: 380px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Таймер */
+.timer {
+    font-size: 2rem;
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    background: rgba(63, 59, 59, 0.295);
+    border-radius: 10px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .section {
+        padding: 2rem 1rem;
+        min-height: auto;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    .child-photos {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .photo-card {
+        width: 100%;
+        height: 300px;
+        max-width: 280px;
+    }
+
+    .wishes-text {
+        font-size: 1.2rem;
+    }
+}
+/* Форма */
+.rsvp-form {
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background: #c89f97;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #b3887f;
+}
+
+.success-message {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #dff0d8;
+    color: #3c763d;
+    border-radius: 5px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .child-photos {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card {
+        width: 100%;
+        height: 300px;
+        max-width: 280px;
+    }
+}
+
+.submit-btn {
+    width: 100%; /* Чтобы кнопка занимала всю ширину */
+    font-size: 1.2rem;
+    padding: 15px;
+}
+
+
+
+/* Стили для карты */
+.map-container {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.map-container iframe {
+    border: 2px solid #e0c9b8;
+}
+
+@media (max-width: 768px) {
+    .map-container iframe {
+        height: 300px;
+    }
+}
+
+.section-divider {
+    height: 80px;
+    background: linear-gradient(
+        180deg, 
+        rgba(255,245,238,1) 0%, 
+        rgba(248,248,248,1) 100%
+    );
+    margin: -40px 0;
+    position: relative;
+    z-index: 1;
+    filter: blur(5px);
+}
+
+.header + .section-divider {
+    background: linear-gradient(
+        180deg, 
+        rgba(0,0,0,0.4) 0%, 
+        rgba(255,245,238,0.5) 100%
+    );
+    height: 120px;
+}
+
+@media (max-width: 768px) {
+    .section-divider {
+        height: 40px;
+        margin: -20px 0;
+    }
+    
+    .section {
+        padding: 2rem 1rem;
+        min-height: auto;
+        overflow: visible;
+    }
+}

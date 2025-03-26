@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Marck+Script&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка -->
+    <section class="section header">
+        <h1>Анна & Роман</h1>
+        <p class="subtitle">20 мая 2025 года</p>
+        <div class="timer" id="timer"></div>
+    </section>
+
+
+    <!-- Детские фото -->
+    <section class="section">
+        <h2>Молодожёны</h2>
+        <div class="child-photos">
+            <div class="photo-card">
+                <img src="images/2.webp" alt="Невеста в детстве">
+            </div>
+            <div class="photo-card">
+                <img src="images/3.webp" alt="Жених в детстве">
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+<!-- Детали мероприятия -->
+<section class="section details">
+    <div class="details-box">
+        <h2>Добро пожаловать на нашу свадьбу!</h2>
+        <p>⏰ Начало: 13:00</p>
+        <p>📍 Шипиловский Дворец бракосочетания</p>
+        <p>Шипиловский пр-д, 27, Москва</p>
+        
+        <!-- Контейнер для карты -->
+        <div class="map-container">
+            <div style="position:relative;overflow:hidden;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);margin-top:2rem;">
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/org/shipilovskiy_dvorets_brakosochetaniya/1678230485/?ll=37.695348%2C55.616834&z=17" 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0" 
+                    allowfullscreen="true"
+                    style="border-radius:10px;">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+    <!-- Пожелания от молодых -->
+    <section class="section wishes">
+        <div class="wishes-text">
+            <h2>Наши пожелания</h2>
+            <p>Дорогие наши гости!<br>
+        Поддержите нас Вашими улыбками и объятиями, а также красивыми нарядами! Только откажитесь от ярко-красного, а белый цвет оставьте невесте, спасибо!</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="rsvp-form">
+            <h2>Подтвердите участие</h2>
+            <form id="contactForm" action="https://formspree.io/f/myzepoze" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                </div>
+                <button type="submit" class="submit-btn">Я буду!</button>
+            </form>
+            <div id="successMessage" class="success-message"></div>
+        </div>
+    </section>
+
+    <script>
+   // Таймер
+   function updateTimer() {
+        // Указываем точную дату и время (20 мая 2025, 13:00 по Москве)
+        const weddingDate = new Date("2025-05-20T13:00+03:00").getTime();
+        const now = new Date().getTime();
+        const diff = weddingDate - now;
+
+        // Проверка на истечение времени
+        if (diff < 0) {
+            document.getElementById('timer').innerHTML = "Свадьба началась!";
+            return;
+        }
+
+        // Расчет единиц времени
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        // Вывод в оригинальном формате
+        document.getElementById('timer').innerHTML = 
+            `${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer(); // Первый запуск
+
+        // Отправка формы
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('successMessage').textContent = 'Спасибо! Ваш ответ успешно отправлен!';
+                    this.reset();
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 5000);
+                }
+            }).catch(error => {
+                console.error('Ошибка отправки:', error);
+            });
+        });
+    </script>
+</body>
+</html>
